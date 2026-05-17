@@ -1,73 +1,99 @@
-# React + TypeScript + Vite
+# Job Tracker 📋
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sleek, drag-and-drop Kanban board for managing your job applications — built with React, TypeScript, and Framer Motion.
 
-Currently, two official plugins are available:
+![Job Tracker](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript)
+![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-06B6D4?style=flat-square&logo=tailwindcss)
+![dnd-kit](https://img.shields.io/badge/dnd--kit-drag%20%26%20drop-FF6B6B?style=flat-square)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Kanban Board** — Four columns: Applied → Interview → Offer → Rejected
+- **Drag & Drop** — Smooth card dragging between and within columns, with full touch support for mobile
+- **Add & Edit Jobs** — Form with company, role, date, salary, job link, priority, notes, and interview date
+- **Delete Jobs** — With a confirm step to prevent accidents
+- **Live Search** — Instantly filter cards across all columns by company or role
+- **Stats Bar** — At-a-glance counts for each stage and response rate
+- **CSV Export** — Download all your applications as a spreadsheet with one click
+- **Dark / Light Mode** — System-aware toggle that switches the whole app smoothly
+- **Persistent Storage** — Everything is saved to `localStorage` — no backend needed
+- **Fully Responsive** — Modals become bottom sheets on mobile, header adapts
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Layer | Technology |
+|---|---|
+| Framework | React 19 + Vite |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 + CSS Custom Properties |
+| Animations | Framer Motion |
+| Drag & Drop | @dnd-kit/core + @dnd-kit/sortable |
+| State | `useReducer` + `localStorage` |
+| Bundler | Vite |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Getting Started
+
+```bash
+# Clone the repo
+git clone https://github.com/ashhad445/JobTracker.git
+cd JobTracker
+
+# Install dependencies
+npm install
+
+# Start the dev server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project Structure
+
 ```
+src/
+├── App.tsx                          # Root component, header, layout
+├── index.css                        # Design system, animations, dark mode vars
+├── types/index.ts                   # TypeScript interfaces (Job, BoardAction, etc.)
+├── hooks/
+│   └── useJobBoard.ts               # useReducer + localStorage persistence
+├── components/
+│   ├── Board/
+│   │   ├── Board.tsx                # DndContext, drag handlers, sensors
+│   │   ├── Column.tsx               # Droppable columns with stagger animations
+│   │   └── JobCard.tsx              # Draggable glass cards with per-column glow
+│   ├── Modals/
+│   │   ├── AddJobModal.tsx          # Controlled form modal (portal rendered)
+│   │   └── JobDetailModal.tsx       # View / edit / delete modal
+│   └── StatsBar/
+│       └── StatsBar.tsx             # Animated stat pill cards
+└── utils/
+    └── exportCSV.ts                 # CSV export via Blob + URL.createObjectURL
+```
+
+---
+
+## Key Concepts Demonstrated
+
+- **`useReducer`** for complex, predictable state transitions (add, move, update, delete jobs)
+- **Discriminated union actions** for type-safe dispatch
+- **Derived state** — stats and filtered results are computed during render, never stored
+- **`createPortal`** — modals render directly into `<body>` to avoid z-index and overflow issues
+- **CSS Custom Properties** for theming — a single `.dark` class on `<html>` flips the entire design
+- **Framer Motion** — spring animations, staggered list reveals, `AnimatePresence` for enter/exit
+- **@dnd-kit** — drag events, collision detection, touch support, and sortable reordering
+
+---
+
+## License
+
+MIT
