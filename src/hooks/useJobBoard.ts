@@ -1,4 +1,5 @@
-import { useReducer, useEffect, Dispatch } from 'react';
+import { useReducer, useEffect } from 'react';
+import type { Dispatch } from 'react';
 import type { BoardState, BoardAction } from '../types';
 
 // ─── The reducer function ─────────────────────────────────────────────────────
@@ -40,11 +41,6 @@ function boardReducer(state: BoardState, action: BoardAction): BoardState {
 
       // Rebuild the order numbers for the destination column (0, 1, 2, 3...)
       const reorderedDest = destColumnJobs.map((j, i) => ({ ...j, order: i }));
-
-      // Recalculate order for the source column too (in case a gap was left)
-      const sourceColumnJobs = jobsWithoutMoved
-        .filter(j => j.columnId !== toColumn)
-        .concat(jobsWithoutMoved.filter(j => j.columnId === movedJob.columnId && j.columnId !== toColumn));
 
       // Rebuild the full jobs array: cards NOT in destination + reordered destination
       const otherJobs = jobsWithoutMoved.filter(j => j.columnId !== toColumn);
