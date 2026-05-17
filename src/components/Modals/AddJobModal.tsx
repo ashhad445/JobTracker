@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import type { Dispatch } from 'react';
 import type { BoardAction, ColumnId, Priority } from '../../types';
 
@@ -81,10 +81,10 @@ export function AddJobModal({ isOpen, onClose, dispatch }: AddJobModalProps) {
     onClose();
   }
 
-  const overlayVariants = { hidden: { opacity: 0 }, visible: { opacity: 1 }, exit: { opacity: 0 } };
-  const panelVariants = {
+  const overlayVariants: Variants = { hidden: { opacity: 0 }, visible: { opacity: 1 }, exit: { opacity: 0 } };
+  const panelVariants: Variants = {
     hidden:  { opacity: 0, y: 24, scale: 0.97 },
-    visible: { opacity: 1, y: 0,  scale: 1,  transition: { type: 'spring' as const, stiffness: 380, damping: 30 } },
+    visible: { opacity: 1, y: 0,  scale: 1,  transition: { type: 'spring', stiffness: 380, damping: 30 } },
     exit:    { opacity: 0, y: 16, scale: 0.97, transition: { duration: 0.18 } },
   };
 

@@ -55,7 +55,7 @@ export function Board({ jobs, onCardClick, dispatch }: BoardProps) {
     let toColumn: ColumnId;
     let toIndex: number;
 
-    if (COLUMN_IDS.includes(overId)) {
+    if ((COLUMN_IDS as string[]).includes(overId)) {
       // Dropped directly on a column (empty column or column gap)
       toColumn = overId as ColumnId;
       const colJobs = jobs.filter(j => j.columnId === toColumn && j.id !== activeId);
